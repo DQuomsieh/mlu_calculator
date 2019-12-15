@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
-import { Right, Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button } from 'native-base';
+import { Audio } from 'expo-av'
+import {Form, Textarea, Item, Content, Input, Right, Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button } from 'native-base';
+import LastPage from './components/LastPage';
 
 const cards = [
   {
@@ -20,13 +22,46 @@ const cards = [
   },
 ];
 
-export default function App() {
-  return (
-    <Container>
+export default class MainPage extends React.Component{
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      "Roboto Regular": require('./assets/fonts/Roboto-Regular.ttf')
+    })
+    this.setState({ fontLoaded: true })
+  }
+
+  render() {
+    return (
+      <Container>
       <Header />
       <View>
         <DeckSwiper
         dataSource={cards}
+        looping={false}
+        renderEmpty={() =>
+          <View>
+            <View style={{flexDirection: 'column', justifyContent: 'space-evenly', padding: 10}}>
+              <Item style={{paddingTop: 20}}>
+                <Icon active name="microphone" />
+                <Input placeholder="Enter sentence for picture #1" />
+              </Item>
+              <Item style={{paddingTop: 20}}>
+                <Icon active name="microphone" />
+                <Input placeholder="Enter sentence for picture #2" />
+              </Item>
+              <Item style={{paddingTop: 20}}>
+                <Icon active name="microphone" />
+                <Input placeholder="Enter sentence for picture #3" />
+              </Item>
+            </View>
+            <View style={{padding: 70, justifyContent: 'center'}}>
+              <Button bordered dark>
+                <Text>Calculate MLU</Text>
+              </Button>
+            </View>
+          </View>
+        }
         renderItem={item =>
         <Card Style={{ elevation: 3}}>
           <CardItem>
@@ -42,23 +77,18 @@ export default function App() {
           </CardItem>
         </Card>
         }/>
-      </View>
-      <View style={{flexDirection: "row", justifyContent: "space-around", flex: 1, position: "absolute", bottom: 50, left: 0, right: 0}}>
+        <View style={{flexDirection: "row", justifyContent: "space-around", flex: 1, position: "absolute", bottom: -600, left: 0, right: 0}}>
         <Button light onPress={() => alert("Recording")}>
           <Icon name="microphone" style={{color: 'black'}} />
         </Button>
-        <Button success onPress={() => alert("Go Next")}>
+        <Button success onPress={() => this._deckSwiper._root.swipeRight()}>
         <Icon name="arrow-forward" style={{color: 'black'}} />
         </Button>
       </View>
-      {/* <View style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 50, left: 0, right: 0, justifyContent: 'right', padding: 15 }}>
-          <Button iconRight onPress={() => alert("Swipe Right")}>
-            <Icon name="arrow-forward" />
-            <Text>Swipe Right</Text>
-          </Button>
-        </View> */}
+      </View>
     </Container>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({

@@ -42,7 +42,7 @@ export default class App extends React.Component{
 
   async componentDidMount() {
     await Font.loadAsync({
-      'Roboto_medium': require('./assets/fonts/Roboto-Medium.ttf')
+      "Roboto_medium": require('./assets/fonts/Roboto-Medium.ttf')
     })
     this.setState({ 
       fontLoaded: true,
@@ -64,7 +64,6 @@ export default class App extends React.Component{
     var oneMLU = 0;
     var twoMLU = 0;
     var threeMLU = 0;
-    alert(words3);
     if(words1 !== null){
       while(i != words1.length){
         if(words1[i].length > 0){
@@ -109,17 +108,13 @@ export default class App extends React.Component{
           if(words3[i].charAt(words3[i].length - 1) === 's'){
             if(words3[i] === 'this' || words3[i] === 'is' || words3[i] === 'his'){
               threeMLU += 1;
-              alert(threeMLU);
             } else {
               threeMLU += 2;
-              alert(threeMLU);
             }
           } else if (words3[i].slice(-3) === 'ing'){
-            threeMLU += 1;
-            alert(threeMLU);
+            threeMLU += 2;
           } else {
             threeMLU += 1;
-            alert(threeMLU);
           }
         }
         i++;
@@ -136,7 +131,7 @@ export default class App extends React.Component{
       <Header>
         <Left />
         <Body>
-          <Title>MLA Calculator</Title>
+          <Title>MLU Calculator</Title>
         </Body>
         <Right />
       </Header>
@@ -213,11 +208,11 @@ export default class App extends React.Component{
           </CardItem>
         </Card>
         }/>
-        <View style={{flexDirection: "row", justifyContent: "space-around", flex: 1, position: "absolute", bottom: -600, left: 0, right: 0}}>
-        <Button light onPress={() => alert("Recording")}>
+        <View style={{flexDirection: "row", justifyContent: "space-around", flex: 1, position: "absolute", bottom: -570, left: 0, right: 0}}>
+        <Button light onPress={() => alert("Recording...")}>
           <Icon name="microphone" style={{color: 'black'}} />
         </Button>
-        <Button success onPress={() => this._deckSwiper._root.swipeRight()}>
+        <Button success onPress={() => alert("Next Item")}>
         <Icon name="arrow-forward" style={{color: 'black'}} />
         </Button>
       </View>
